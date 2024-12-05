@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.DashboardController">
+    <top>
+        <Label text="Travel Diary Dashboard" style="-fx-font-size: 24; -fx-padding: 10;" />
+    </top>
+    <center>
+        <ListView fx:id="journalListView" />
+    </center>
+    <bottom>
+        <HBox spacing="10" style="-fx-padding: 10;">
+            <Button text="Add Entry" onAction="#handleAddEntryAction"/>
+            <Button text="Edit Entry" onAction="#handleEditEntryAction"/>
+            <Button text="Delete Entry" onAction="#handleDeleteEntryAction"/>
+        </HBox>
+    </bottom>
+</BorderPane>
