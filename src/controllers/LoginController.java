@@ -3,10 +3,10 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import java.io.BufferedReader;
@@ -31,11 +31,19 @@ public class LoginController {
         if (validateUser(username, password)) {
             showAlert("Login Successful", "Welcome " + username + "!", AlertType.INFORMATION);
             try {
+                // Load the dashboard FXML
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
                 Scene dashboardScene = new Scene(loader.load());
+
+                // Pass the logged-in user to the dashboard controller
+                DashboardController dashboardController = loader.getController();
+                dashboardController.setLoggedInUser(username);
+
+                // Get the current stage and set the new scene
                 Stage currentStage = (Stage) userNameField.getScene().getWindow();
                 currentStage.setScene(dashboardScene);
                 currentStage.setTitle("Dashboard");
+                currentStage.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -43,23 +51,15 @@ public class LoginController {
             showAlert("Login Failed", "Invalid username or password", AlertType.ERROR);
         }
     }
-
-    // Handle register button action
+    
     @FXML
     private void handleRegisterButtonAction(ActionEvent event) {
         try {
-            // Load the register screen FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/registerScreen.fxml")); // Correct path here
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/registerScreen.fxml"));
             Scene registerScene = new Scene(loader.load());
-
-            // Get the current stage and set the new scene
-            Stage currentStage = (Stage) userNameField.getScene().getWindow();  // Get current stage
-            currentStage.setScene(registerScene);  // Set new scene
-
-            // Optionally, you can set the title of the new stage
+            Stage currentStage = (Stage) userNameField.getScene().getWindow();
+            currentStage.setScene(registerScene);
             currentStage.setTitle("Register");
-
-            // Show the register screen
             currentStage.show();
         } catch (IOException e) {
             e.printStackTrace();

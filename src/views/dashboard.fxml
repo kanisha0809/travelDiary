@@ -5,6 +5,7 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.DashboardController">
     <top>
         <Label text="Travel Diary Dashboard" style="-fx-font-size: 24; -fx-padding: 10;" />
+        <Label fx:id="welcomeLabel" />
     </top>
     <center>
         <ListView fx:id="journalListView" />

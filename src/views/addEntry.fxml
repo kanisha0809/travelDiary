@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.AddEntryController">
+    <children>
+        <TextField fx:id="titleField" promptText="Enter title" layoutX="20" layoutY="20"/>
+        <TextArea fx:id="textArea" promptText="Enter your journal text" layoutX="20" layoutY="60"/>
+        <Button text="Add Image" onAction="#handleAddImageAction" layoutX="20" layoutY="200"/>
+        <Button text="Save Entry" onAction="#handleSaveEntryAction" layoutX="200" layoutY="200"/>
+    </children>
+</AnchorPane>

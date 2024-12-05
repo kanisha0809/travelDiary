@@ -8,8 +8,11 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -42,7 +45,7 @@ public class RegisterController {
             showAlert("Invalid Input", "Username or password cannot be empty.", AlertType.ERROR);
             return;
         }
-        
+
         if (isUsernameTaken(username)) {
             showAlert("Username Taken", "The username is already taken.", AlertType.ERROR);
             return;
@@ -51,7 +54,24 @@ public class RegisterController {
         // Save new user credentials to file
         saveUser(username, password);
         showAlert("Registration Successful", "Welcome " + username + "!", AlertType.INFORMATION);
-        // Code to switch back to login screen can go here
+
+        // Redirect to the dashboard after successful registration
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/dashboard.fxml"));
+            Scene dashboardScene = new Scene(loader.load());
+
+            // Pass the logged-in user to the dashboard controller
+            DashboardController dashboardController = loader.getController();
+            dashboardController.setLoggedInUser(username);
+
+            // Get the current stage and set the new scene
+            Stage currentStage = (Stage) userNameField.getScene().getWindow();
+            currentStage.setScene(dashboardScene);
+            currentStage.setTitle("Dashboard");
+            currentStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Check if user name already exists in the file
